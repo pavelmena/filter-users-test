@@ -8,11 +8,13 @@ namespace Services.Implementations
     public class ClientService : IClientService
     {
         private readonly IClientRepository _clientRepository;
+
         public ClientService(IClientRepository clientRepository)
         {
             _clientRepository = clientRepository;
         }
-        public IEnumerable<Client> GetClients(TypeEnum? type)
+
+        public IEnumerable<Client> GetClients(TypeEnum? type = null)
         {
             var clients = _clientRepository.GetClients();
 
