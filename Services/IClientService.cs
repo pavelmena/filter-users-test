@@ -6,6 +6,6 @@ namespace Services
 {
     public interface IClientService
     {
-        IEnumerable<Client> GetClients(TypeEnum? type);
+        IEnumerable<Client> GetClients(TypeEnum? type = null);
     }
 }
