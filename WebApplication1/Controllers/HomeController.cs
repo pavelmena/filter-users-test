@@ -10,6 +10,7 @@ namespace WebApplication1.Controllers
     public class HomeController : Controller
     {
         private readonly IClientService _clientService;
+
         public HomeController(IClientService clientService)
         {
             _clientService = clientService;
@@ -20,17 +21,28 @@ namespace WebApplication1.Controllers
         /// </summary>
         /// <param name="type">Filter clients by type.</param>
         /// <returns></returns>
-        public ActionResult Index(TypeEnum? type)
+        public ActionResult Index()
         {
-            // Enhance this code using automapper.
-            // Also add control for which clients are selected in the View layer once 
-            // defined for which we are selecting more than one client.
+            // Enhance this code using automapper. Also add control for which clients are selected in
+            // the View layer once defined for which we are selecting more than one client.
             var model = new HomeVM
             {
-                AvailableClients = _clientService.GetClients(type)
+                AvailableClients = _clientService.GetClients()
             };
 
             return View(model);
+        }
+
+        /// <summary>
+        /// Render partial view - Clients table data
+        /// </summary>
+        /// <param name="type">Filter clients by type</param>
+        /// <returns></returns>
+        public ActionResult ClientsTable(TypeEnum? type)
+        {
+            var clients = _clientService.GetClients(type);
+
+            return PartialView("_ClientTable", clients);
         }
 
         /// <summary>
